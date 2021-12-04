@@ -1,0 +1,59 @@
+server:
+  port: 5000
+logging:
+  level:
+    org.springframework: ERROR
+    com.mkyong: INFO
+  pattern:
+    console: '%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n'
+    file: '%d %p %c{1.} [%t] %m%n'
+  file: app.log
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  application:
+    name: in19-performance-admin-api
+  datasource:
+         password: cNejAyloO3kxooMd
+         url: jdbc:postgresql://uat-db.invest19.com:5432/in19-prod-db
+         username: postgres
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+feign: 
+  client:
+    name:
+        verifyApi: in19-broker-onboarding-service-uat
+    url:
+      invest19Api:
+    config:
+      default:
+        connectTimeout: 160000000
+        readTimeout: 160000000
+
+ribbon:
+  eureka:
+    enabled: true
+  client:
+    name:
+      invest19Api:
+        aofApi: in19-onboarding-aof-api-uat
+        authApi: in19-auth-api-uat
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    enabled: false
+    registerwithEureka: false
+    fetchRegistry: false
+    service-url:
+      defaultZone: https://eurekaapi-uat.invest19.com/eureka
+
+
